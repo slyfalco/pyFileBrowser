@@ -71,7 +71,7 @@ def ranvid(num=0):
         vid.protocol("WM_DELETE_WINDOW", disable_exit)
         videoPlayer = Label(vid)
         videoPlayer.pack()
-    ran = random.randrange(1, 6)
+    ran = random.randrange(1, 5)
     if not num == 1:
         video = tkvideo(str(ran) + ".mp4", videoPlayer, loop=0, size=(w, h))
         video.play()
@@ -79,10 +79,7 @@ def ranvid(num=0):
         frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
         cap.release()
         duration = frame_count / 15
-        if ran == 5:
-            vid.after(round((duration*1000)+400),lambda:vid.destroy())
-        else:
-            vid.after(round((-330 if (duration*1000) == 5333.333333333333 else -400)+(duration*1000)),lambda:vid.destroy())
+        vid.after(round((-330 if (duration*1000) == 5333.333333333333 else -400)+(duration*1000)),lambda:vid.destroy())
     winsound.PlaySound(str(ran) + ".wav", winsound.SND_ASYNC)
 
 def on_crash(exctype, excvalue, exctraceback):

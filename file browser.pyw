@@ -71,7 +71,7 @@ def ranvid(num=0):
         vid.protocol("WM_DELETE_WINDOW", disable_exit)
         videoPlayer = Label(vid)
         videoPlayer.pack()
-    ran = random.randrange(1, 5)
+    ran = random.randrange(1, 4)
     if not num == 1:
         video = tkvideo(str(ran) + ".mp4", videoPlayer, loop=0, size=(w, h))
         video.play()

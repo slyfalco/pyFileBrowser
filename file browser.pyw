@@ -12,7 +12,6 @@ import subprocess
 import sys
 import logging
 import traceback
-from playsound import playsound
 import cv2
 
 

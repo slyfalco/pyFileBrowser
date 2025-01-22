@@ -12,10 +12,7 @@ import subprocess
 import sys
 import logging
 import traceback
-import winsound
 from playsound import playsound
-import random
-from tkvideo import tkvideo
 import cv2
 
 
@@ -59,32 +56,8 @@ def center(win, w=1, h=1):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
 
-def ranvid(num=0):
-    if not num == 1:
-        vid = Toplevel(root)
-        vid.overrideredirect(True)
-        vid.attributes('-topmost','true')
-        w = int(round(0.66666666666 * sWidth))
-        h = int(round(0.66666666666 * sHeight))
-        center(vid, w, h)
-        vid.resizable(0,0)
-        vid.protocol("WM_DELETE_WINDOW", disable_exit)
-        videoPlayer = Label(vid)
-        videoPlayer.pack()
-    ran = random.randrange(1, 4)
-    if not num == 1:
-        video = tkvideo(str(ran) + ".mp4", videoPlayer, loop=0, size=(w, h))
-        video.play()
-        cap = cv2.VideoCapture(str(ran) + ".mp4")
-        frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
-        cap.release()
-        duration = frame_count / 15
-        vid.after(round((-330 if (duration*1000) == 5333.333333333333 else -400)+(duration*1000)),lambda:vid.destroy())
-    winsound.PlaySound(str(ran) + ".wav", winsound.SND_ASYNC)
-
 def on_crash(exctype, excvalue, exctraceback):
     if SHOW_ERRORS:
-        ranvid(1)
         if issubclass(exctype, KeyboardInterrupt):
             sys.__excepthook__(exctype, excvalue, exctraceback)
             return
@@ -111,9 +84,7 @@ class Error(Exception):
         return f"{self.message} (Error Code: {self.error_code})"
 
 def wError(message="An error occurred"):
-    ranvid()
     messagebox.showerror('Simple File Explorer', "Error: " + str(message), parent=top)
-    winsound.PlaySound(None, winsound.SND_PURGE)
 
 def check_directory_permissions(directory_path):
    try:
